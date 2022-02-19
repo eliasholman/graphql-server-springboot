@@ -1,0 +1,60 @@
+"""
+Censors any value to asterisks
+"""
+directive @censor on FIELD_DEFINITION
+
+"""
+Exposes a URL that specifies the behaviour of this scalar.
+"""
+directive @specifiedBy(
+  """
+  The URL that specifies the behaviour of this scalar.
+  """
+  url: String!
+) on SCALAR
+
+type Customer {
+  firstName: String
+  lastName: String
+  title: String
+}
+
+type Order {
+  buyer: Customer
+  products: [Product]
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+}
+
+type Product {
+  description: String
+  name: String
+}
+
+type Query {
+  orders: [Order]
+  products: [Product]
+}
